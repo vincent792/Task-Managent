@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+  .card-img {
+    max-width: 350px;
+    max-height: 350px;
+  }
+</style>
+<div class="container mt-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card card-img">
+          <img
+            class="card-img-top"
+            src="{% static 'img/stickynotes-2.jpg' %}"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card card-img">
+          <img
+            class="card-img-top"
+            src="{% static 'img/stickynotes-1.jpg' %}"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card card-img">
+          <img
+            class="card-img-top"
+            src="{% static 'img/stickynotes.jpg' %}"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center mt-4">
+    <div class="jumbotron">
+      <h1 style="color: green">Tasks4Tasks</h1>
+
+      <p>Online Based Task Manager</p>
+      <a href="" class="btn btn-outline-success">Get Started</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
