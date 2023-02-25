@@ -12,8 +12,10 @@
           <h5 class="card-title">
             <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a>
           </h5>
-          <table class="table">
-            <thead>
+          <table
+            class="table table-responsive table-bordered table-hover table-sm"
+          >
+            <thead class="thead-dark">
               <tr>
                 <th>Broker</th>
                 <th>Deadline</th>
@@ -25,7 +27,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr class="table-warning">
                 <td scope="row">{{ task.broker }}</td>
                 <td>{{ task.deadline|date:"M. d, Y" }}</td>
                 <td>{{ task.created_at|date:"M. d, Y" }}</td>
