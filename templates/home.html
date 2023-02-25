@@ -5,8 +5,14 @@
     max-height: 350px;
   }
 </style>
+
 <div class="container mt-4">
   <div class="container">
+    {% for message in messages %}
+
+    <p class="alert alert-danger">{{message}}</p>
+
+    {% endfor %}
     <div class="row">
       <div class="col-md-4">
         <div class="card card-img">
