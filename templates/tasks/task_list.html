@@ -8,55 +8,59 @@
         <div class="card-body">
           <h4 class="card-title">Task List</h4>
           {% for task in tasks %}
+          <div class="x-cord" style="overflow-x: auto">
+            <h5 class="card-title">
+              <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a>
+            </h5>
+            <table class="table table-bordered table-hover table-sm">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Broker</th>
+                  <th>Deadline</th>
+                  <th>Start</th>
+                  <th>Price</th>
+                  <th>Completed</th>
+                  <th>Paid</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-warning">
+                  <td scope="row">{{ task.broker }}</td>
+                  <td>{{ task.deadline|date:"M. d, Y" }}</td>
+                  <td>{{ task.created_at|date:"M. d, Y" }}</td>
+                  <td>Ksh.{{ task.price }}</td>
+                  {% if task.completed %}
+                  <td>
+                    <a class="badge badge-success text-white">completed</a>
+                  </td>
+                  {% else %}
+                  <td>
+                    <a class="badge badge-danger text-white">incomplete</a>
+                  </td>
+                  {% endif %} {% if task.paid %}
 
-          <h5 class="card-title">
-            <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a>
-          </h5>
-          <table
-            class="table table-responsive table-bordered table-hover table-sm"
-          >
-            <thead class="thead-dark">
-              <tr>
-                <th>Broker</th>
-                <th>Deadline</th>
-                <th>Start</th>
-                <th>Price</th>
-                <th>Completed</th>
-                <th>Paid</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="table-warning">
-                <td scope="row">{{ task.broker }}</td>
-                <td>{{ task.deadline|date:"M. d, Y" }}</td>
-                <td>{{ task.created_at|date:"M. d, Y" }}</td>
-                <td>Ksh.{{ task.price }}</td>
-                {% if task.completed %}
-                <td><a class="badge badge-success text-white">completed</a></td>
-                {% else %}
-                <td><a class="badge badge-danger text-white">incomplete</a></td>
-                {% endif %} {% if task.paid %}
+                  <td><a class="badge badge-success text-white">paid</a></td>
+                  {% else %}
+                  <td><a class="badge badge-warning text-white">pending</a></td>
+                  {% endif %}
 
-                <td><a class="badge badge-success text-white">paid</a></td>
-                {% else %}
-                <td><a class="badge badge-warning text-white">pending</a></td>
-                {% endif %}
+                  <td>
+                    <a
+                      class="badge badge-success"
+                      href="{% url 'task_edit' task.pk %}"
+                      >Edit</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-                <td>
-                  <a
-                    class="badge badge-success"
-                    href="{% url 'task_edit' task.pk %}"
-                    >Edit</a
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
           {% empty %}
           <li>No tasks yet.</li>
           {% endfor %}
-          <p class="card-text">
+          <p class="card-text mt-4">
             <a href="{% url 'task_create' %}">Add a new task</a>
           </p>
         </div>
