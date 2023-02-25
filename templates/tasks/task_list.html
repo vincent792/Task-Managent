@@ -1,11 +1,66 @@
 {% extends 'base.html' %} {% block content %}
-<h1>Task List</h1>
-<ul>
-  {% for task in tasks %}
-  <li><a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a></li>
-  {% empty %}
-  <li>No tasks yet.</li>
-  {% endfor %}
-</ul>
-<a href="{% url 'task_create' %}">Add a new task</a>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <img class="card-img-top" src="" alt="" />
+        <div class="card-body">
+          <h4 class="card-title">Task List</h4>
+          {% for task in tasks %}
+
+          <h5 class="card-title">
+            <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a>
+          </h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Broker</th>
+                <th>Deadline</th>
+                <th>Start</th>
+                <th>Price</th>
+                <th>Completed</th>
+                <th>Paid</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">{{ task.broker }}</td>
+                <td>{{ task.deadline|date:"M. d, Y" }}</td>
+                <td>{{ task.created_at|date:"M. d, Y" }}</td>
+                <td>Ksh.{{ task.price }}</td>
+                {% if task.completed %}
+                <td><a class="badge badge-success text-white">completed</a></td>
+                {% else %}
+                <td><a class="badge badge-danger text-white">incomplete</a></td>
+                {% endif %} {% if task.paid %}
+
+                <td><a class="badge badge-success text-white">paid</a></td>
+                {% else %}
+                <td><a class="badge badge-warning text-white">pending</a></td>
+                {% endif %}
+
+                <td>
+                  <a
+                    class="badge badge-success"
+                    href="{% url 'task_edit' task.pk %}"
+                    >Edit</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          {% empty %}
+          <li>No tasks yet.</li>
+          {% endfor %}
+          <p class="card-text">
+            <a href="{% url 'task_create' %}">Add a new task</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

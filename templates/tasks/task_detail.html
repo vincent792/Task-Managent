@@ -1,12 +1,57 @@
 {% extends 'base.html' %} {% block content %}
-<h1>{{ task.title }}</h1>
-<p>{{ task.description }}</p>
-<p>Completed: {{ task.completed }}</p>
-<p>Created at: {{ task.created_at }}</p>
-<p>Updated at: {{ task.updated_at }}</p>
-<a href="{% url 'task_edit' task.pk %}">Edit</a>
-<form method="post" action="{% url 'task_delete' task.pk %}">
-  {% csrf_token %}
-  <input type="submit" value="Delete" />
-</form>
+
+<div class="container">
+  <div class="row"><div class="col">
+    <div class="card">
+      <img class="card-img-top" src="holder.js/100x180/" alt="">
+      <div class="card-body">
+        
+        <p class="card-text">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                
+                {% if task.completed %}
+                <td><a class="badge badge-success text-white">completed</a></td>
+                {% else %}
+                <td><a class="badge badge-danger text-white">incomplete</a></td>
+                {% endif %}
+              </tr>
+            </tbody>
+          </table>
+
+        </p>
+        <div class="card-text text-center">
+        <p class="alert alert-success mt-4">Created: {{ task.created_at|date:"M. d, Y"  }}</p>
+        <p class="alert alert-primary mt-4">Updated: {{ task.updated_at|date:"M. d, Y"  }}</p>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <div class="row">
+          <div class="col">
+            <a class="btn btn-outline-success btn-sm" href="{% url 'task_edit' task.pk %}">Edit</a>
+
+          </div>
+          <div class="col">
+            <form method="post" action="{% url 'task_delete' task.pk %}">
+              {% csrf_token %}
+              <input type="submit" class="btn btn-outline-danger btn-sm"  value="Delete" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+
 {% endblock %}

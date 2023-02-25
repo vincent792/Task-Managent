@@ -1,7 +1,28 @@
 {% extends 'base.html' %} {% block content %}
-<h1>{{ form_title }}</h1>
-<form method="post">
-  {% csrf_token %} {{ form.as_p }}
-  <input type="submit" value="Save" />
-</form>
+<div class="container">
+  <style>
+    .form-check-centered {
+    margin-left: 5%;
+    justify-content: center;
+    align-items: center;
+}
+
+  </style>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <img class="card-img-top" src="holder.js/100x180/" alt="">
+        <div class="card-body">
+          <h4 class="card-title">{{ form_title }}</h4>
+          <p class="card-text">         
+            <form method="post">
+              {% csrf_token %} {{ form.as_p }}
+              <input type="submit" class="btn btn-success btn-block" value="Save" />
+            </form>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
