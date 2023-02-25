@@ -48,33 +48,36 @@ def login(request):
     if request.method =='POST':
         uname=request.POST['uname']
         pass1=request.POST['pass1']
-        k=UserDetail.objects.get(username=uname)
-        c=k.staff
-        print(c)
-        if c == False:
-            messages.info(request, "Prohibited!! Contact Admin to be given role to Login and use the task manager app .")
+        if UserDetail.objects.filter(username=uname).exists():
+            k=UserDetail.objects.get(username=uname)
+            c=k.staff
+            print(c)
+            if c == False:
+                messages.info(request, "Prohibited!! Contact Admin to be given role to Login and use the task manager app .")
+                
+                return redirect('login')
+            else:
             
-            return redirect('login')
-        else:
-        
-            user= auth.authenticate(username=uname, password=pass1)
-            
-            if User.objects.filter(username=uname).exists():           
-            
-                if user is not None:
-                    auth.login(request, user)
-                    print('login success')
-                    messages.info(request, 'Login  Success.....')
-                    return redirect('/')
-                else:
-                    print('invalid details')
-                    messages.info(request, 'Invalid Password.....')
+                user= auth.authenticate(username=uname, password=pass1)
+                
+                if User.objects.filter(username=uname).exists():           
+                
+                    if user is not None:
+                        auth.login(request, user)
+                        print('login success')
+                        messages.info(request, 'Login  Success.....')
+                        return redirect('/')
+                    else:
+                        print('invalid details')
+                        messages.info(request, 'Invalid Password.....')
+                        return redirect('login')
+                else:            
+                    print('Invalid username')
+                    messages.info(request, 'Invalid username.....')
                     return redirect('login')
-            else:            
-                print('Invalid username')
-                messages.info(request, 'Invalid username.....')
-                return redirect('login') 
-        
+        else:
+            messages.info(request, 'Invalid Username.....')
+            return redirect('login')
     template_name='login.html'
     return render(request , template_name)
 
